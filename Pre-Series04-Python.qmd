@@ -62,6 +62,14 @@ Pre-Series04-Python/
     ├── 03_tangential_speed.qmd
     └── 04_interactive_plot.qmd
 ```
+## Branching Structure
+
+- main
+- 01_generate_known_signal
+- 02_time_derivative
+- 03_tangential_speed
+- 04_interactive_plot
+
 
 # Generate a known signal
 
