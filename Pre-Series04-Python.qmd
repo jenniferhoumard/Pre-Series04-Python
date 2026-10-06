@@ -1,0 +1,82 @@
+---
+title: "Assignment Pre-Series04-Python"
+author:
+  - "Jennifer Houmard"
+  - "Vidusha Thebuwana"
+  - "Tuba Tuba"
+date: "2026-10-12"
+
+format:
+  typsy:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    embed-resources: true
+
+jupyter: python3
+
+execute:
+  echo: true
+  warning: false
+---
+
+GitHub repository: https://github.com/jenniferhoumard/Pre-Series04-Python
+
+```{python}
+#| label: setup
+#| include: false
+
+import numpy as np
+import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+```
+
+
+# Group Workflow
+
+# Group Workflow
+
+The assignment is divided into separate Quarto documents so that each group member can work independently on their own branch. Once a section is completed and reviewed, its branch is merged into `main`. The master Quarto document combines all sections into the final report.
+
+| Student | Quarto Document |
+|---|---|
+| Student 1 | `01_generate_known_signal.qmd` and `04_interactive_plot.qmd` |
+| Student 2 | `02_time_derivative.qmd` |
+| Student 3 | `03_tangential_speed.qmd` |
+
+## Repository Structure
+
+```text
+Pre-Series04-Python/
+│
+├── Pre-Series04-Python.qmd
+├── Pre-Series04-Python.html
+│
+├── README.md
+├── .gitignore
+├── LICENSE
+│
+└── sections/
+    ├── 01_generate_known_signal.qmd
+    ├── 02_time_derivative.qmd
+    ├── 03_tangential_speed.qmd
+    └── 04_interactive_plot.qmd
+```
+
+# Generate a known signal
+
+{{< include sections/01_generate_known_signal.qmd >}}
+
+# Estimate the time derivative of the signal
+
+{{< include sections/02_time_derivative.qmd >}}
+
+
+# Estimate the tangential speed of the signal
+
+{{< include sections/03_tangential_speed.qmd >}}
+
+
+# Create an interactive plot with the Plotly library
+
+{{< include sections/04_interactive_plot.qmd >}}
