@@ -34,8 +34,6 @@ import plotly.graph_objects as go
 
 # Group Workflow
 
-# Group Workflow
-
 The assignment is divided into separate Quarto documents so that each group member can work independently on their own branch. Once a section is completed and reviewed, its branch is merged into `main`. The master Quarto document combines all sections into the final report.
 
 | Student | Quarto Document |
