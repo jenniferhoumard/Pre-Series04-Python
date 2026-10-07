@@ -218,3 +218,14 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Quarto outputs
+.quarto/
+sections/*.html
+sections/*_files/
+
+# R leftovers
+.Rhistory
+
+# macOS
+.DS_Store

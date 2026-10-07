@@ -1,7 +1,29 @@
 
+
 ## Analytical Derivative
 
+Objective: to get the exact (known) time derivative of the signal, so that we can later check the numerical estimates against it.
+
+For a sinusoid $s(t) = A \sin(2\pi f t + \phi)$, the chain rule gives:
+
+$$\frac{ds}{dt} = 2\pi f A \cos(2\pi f t + \phi)$$
+
+The derivative is a cosine (a sine shifted by $\pi/2$), with the same frequency and phase, and an amplitude multiplied by $2\pi f$.
+
+With $A = 1$, $f = 1$ Hz and a phase shift of $\pi/4$ between axes, the derivative along each axis of `signal` is:
+
+$$\dot{x}(t) = 2\pi \cos(2\pi t)$$
+
+$$\dot{y}(t) = 2\pi \cos\left(2\pi t + \frac{\pi}{4}\right)$$
+
+$$\dot{z}(t) = 2\pi \cos\left(2\pi t + \frac{\pi}{2}\right)$$
+
+The expected amplitude is therefore $2\pi \approx 6.28$, which matches the vertical range of the reference plots.
+
+
+
 ## Forward and Central Differences
+
 
 ## Derivative Functions
 
