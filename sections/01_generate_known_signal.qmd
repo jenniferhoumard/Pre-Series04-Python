@@ -25,9 +25,34 @@ A frequency of 1 Hz means that the signal completes one full cycle every second.
 
 ## Time Vector and Signal
 
-```{python}
+The objective of this step is to create the time values at which the sinusoidal signal will be calculated. The provided example uses 100 samples over a duration of 3 seconds and requires the time vector to be a column vector with shape `(100, 1)`.
 
+### Time Vector
+
+First, we define the duration and number of samples:
+
+```{python}
+duration = 3  # Total duration of the signal in seconds
+
+n_samples = 100  # Number of samples used in the provided example
 ```
+
+Then we create 100 equally spaced time values between 0 and 3 seconds:
+
+```{python}
+time = np.linspace(0, duration, n_samples)  # Create the time values from 0 to 3 seconds
+
+print(time.shape)
+```
+
+Convert the time vector into a column vector: we need 100 rows and 1 column since np.linspace initially creates a one dimensional array
+
+```{python}
+time = time.reshape(-1, 1)  # Convert the time vector into a column vector
+
+print(time.shape)  # Check the shape of the time vector
+```
+
 
 
 ## Signal Visualization
