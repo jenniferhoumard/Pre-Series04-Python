@@ -69,7 +69,7 @@ frequency = 1  # Set the frequency of each sinusoidal signal to 1 Hz
 phase_shift = np.pi / 4  # Set the phase shift between each axis to pi/4 radians
 ```
 
-Now we create the 3 signals x, y, and z
+Now we create the 3 signals x, y, and z:
 
 ```{python}
 x = amplitude * np.sin(2 * np.pi * frequency * time)  # Create the x signal with no phase shift
@@ -78,4 +78,30 @@ y = amplitude * np.sin(2 * np.pi * frequency * time + phase_shift)  # Shift y by
 
 z = amplitude * np.sin(2 * np.pi * frequency * time + 2 * phase_shift)  # Shift z by another pi/4 relative to y
 ```
+
+### Combine the Signals into a 2D Array
+
+Objective: to combine the separate x, y, and z signals into one 2D NumPy array.
+
+Each signal currently has the shape:
+
+```text
+(100, 1) 
+```
+We want the final signal array to contain:
+- x in the first column,
+- y in the second column,
+- z in the third column.
+
+```text
+(100, 3)
+```
+```{python}
+signal = np.hstack((x, y, z))  # Combine x, y, and z horizontally into one 2D array
+# hstack = horizontal stack
+
+print(signal.shape)  # Print the shape of the combined signal array
+```
+
+
 
