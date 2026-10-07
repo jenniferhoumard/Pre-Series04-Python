@@ -62,7 +62,8 @@ def derivative_forward(signal, time):
 
     signal: array (N, d), samples over rows, dimensions over columns
     time:   array (N, 1) or (N,), measurement dates
-    returns: array (N-1, d); row i estimates the derivative at time[i]
+    returns: array (N, d); the first row repeats the second one, because
+             the forward difference gives only N-1 values.
     """
     signal = np.asarray(signal, dtype=float)
     time = np.asarray(time, dtype=float).reshape(-1, 1)  # force a column vector
@@ -71,14 +72,18 @@ def derivative_forward(signal, time):
     if signal.shape[0] != time.shape[0]:
         raise ValueError("signal and time must have the same number of rows")
 
-    return (signal[1:] - signal[:-1]) / (time[1:] - time[:-1])
+    d = (signal[1:] - signal[:-1]) / (time[1:] - time[:-1])  # (N-1, d)
+    return np.vstack((d[:1], d))  # repeat the first value so the output has N rows
+
 
 def derivative_central(signal, time):
     """Time derivative using the central difference.
 
     signal: array (N, d), samples over rows, dimensions over columns
     time:   array (N, 1) or (N,), measurement dates
-    returns: array (N-2, d); row i estimates the derivative at time[i+1]
+    returns: array (N, d); interior rows use the central difference, the
+             first row a forward difference and the last row a backward
+             difference (no neighbour on one side).
     """
     signal = np.asarray(signal, dtype=float)
     time = np.asarray(time, dtype=float).reshape(-1, 1)  # force a column vector
@@ -87,9 +92,49 @@ def derivative_central(signal, time):
     if signal.shape[0] != time.shape[0]:
         raise ValueError("signal and time must have the same number of rows")
 
-    return (signal[2:] - signal[:-2]) / (time[2:] - time[:-2])
+    d = np.empty_like(signal)
+    d[1:-1] = (signal[2:] - signal[:-2]) / (time[2:] - time[:-2])  # interior: central
+    d[0] = (signal[1] - signal[0]) / (time[1] - time[0])           # first row: forward
+    d[-1] = (signal[-1] - signal[-2]) / (time[-1] - time[-2])      # last row: backward
+    return d
 ```
 
 ## Derivative Results
+
+Objective: to apply both functions to the signal from section 1, plot the results, and compare them with the analytical derivative.
+
+```{python}
+d_forward = derivative_forward(signal, time)  # shape (N, 3)
+d_central = derivative_central(signal, time)  # shape (N, 3)
+
+#print(f"signal.shape    = {signal.shape}")
+#print(f"d_forward.shape = {d_forward.shape}")
+#print(f"d_central.shape = {d_central.shape}")
+
+# Analytical derivative (see the first section above)
+phases = np.array([0, phase_shift, 2 * phase_shift])  # one phase per axis
+exact = 2 * np.pi * np.cos(2 * np.pi * time + phases)
+
+# Compare on interior samples only, since the edge values are one-sided estimates
+#print(f"max error, forward difference: {np.abs(d_forward - exact)[1:-1].max():.3f}")
+#print(f"max error, central difference: {np.abs(d_central - exact)[1:-1].max():.3f}")
+
+for name, d in [("Forward", d_forward), ("Central", d_central)]:
+    plt.figure(figsize=(10, 6))  # one figure per method
+
+    for i in range(3):  # loop over x, y, z
+        plt.plot(time[:, 0], signal[:, i], color=f"C{i}", linewidth=1.5,
+                 label="Signal" if i == 0 else None)  # C0, C1, C2: blue, orange, green
+        plt.plot(time[:, 0], d[:, i], color=f"C{i + 3}", linewidth=1.5,
+                 label=f"Derivative ({name} Difference)" if i == 0 else None)  # C3, C4, C5
+
+    plt.xlabel("Time (s)")
+    plt.ylabel("Amplitude")
+    plt.legend(loc="center left", bbox_to_anchor=(1.02, 0.5))  # legend outside, like the reference
+    plt.grid()
+    plt.show()
+```
+
+The central difference error is much smaller than the forward one, as expected from $O(h^2)$ versus $O(h)$.
 
 
