@@ -46,13 +46,23 @@ In short: the forward difference is simpler and uses fewer samples, but the cent
 
 Reference: https://en.wikipedia.org/wiki/Finite_difference (see the sections on forward, backward and central differences).
 
+*Side notes (beyond the two required methods):*
+
+- The **backward difference**, $\dot{s}(t_i) \approx \frac{s(t_i) - s(t_{i-1})}{t_i - t_{i-1}}$, uses the current and the previous sample. It is also first-order, $O(h)$. We use it for the last row of the central-difference function, where there is no next neighbour.
+- A higher-order alternative is the **five-point central difference** (uniform step $h$): $\dot{s}(t_i) \approx \frac{-s(t_{i+2}) + 8s(t_{i+1}) - 8s(t_{i-1}) + s(t_{i-2})}{12h}$. It uses two samples on each side, so it is $O(h^4)$ and more accurate for a smooth signal, but it needs more neighbours ($N-4$ values). Not implemented here.
+
 ## Derivative Functions
 
 Objective: to implement the two methods as functions that work on a signal with samples over rows and dimensions over columns.
 
 **Order of the inputs:** `signal` first, then `time`. The signal is the main data being processed, and time is the reference axis along which we differentiate. This is also the convention of `np.gradient(f, x)` and `np.trapz(y, x)`: the values first, then the coordinates.
 
-**Shape of the output:** for `signal` of shape `(N, d)`, the raw formulas give `N-1` values (forward) and `N-2` values (central). To keep the output aligned with `time`, both functions pad the edges and return an array of shape `(N, d)`: the forward version repeats the first value, and the central version uses a one-sided difference on the first and last rows.
+**Shape of the output:** for `signal` of shape `(N, d)`, the raw formulas give `N-1` values (forward) and `N-2` values (central).
+
+The forward difference gives one slope per *interval* between two samples, and $N$ samples make only $N-1$ intervals. The central difference needs a neighbour on each side, so only interior samples qualify ($N-2$). To keep the output aligned with `time`, both functions return shape `(N, d)`:
+
+- **Forward:** $N-1$ slopes + 1 repeated row = $N$ rows. Each interval's slope is assigned to the sample at the *end* of the interval, and the first row repeats the first slope. (The textbook convention assigns it to the start; the two differ by one time step, 0.01 s, invisible on the plots.)
+- **Central:** $N-2$ interior slopes + 2 edge rows = $N$ rows. The first row uses a forward difference and the last row a backward difference, since each has a neighbour on one side only.
 
 ```{python}
 # Reference: https://en.wikipedia.org/wiki/Finite_difference

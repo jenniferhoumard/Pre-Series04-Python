@@ -13,7 +13,7 @@ format:
     number-sections: true
     embed-resources: true
 
-jupyter: Pre-Series04-Python
+jupyter: python3
 
 execute:
   echo: true
