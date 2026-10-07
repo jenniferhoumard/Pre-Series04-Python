@@ -73,5 +73,23 @@ def derivative_forward(signal, time):
 
     return (signal[1:] - signal[:-1]) / (time[1:] - time[:-1])
 
+def derivative_central(signal, time):
+    """Time derivative using the central difference.
+
+    signal: array (N, d), samples over rows, dimensions over columns
+    time:   array (N, 1) or (N,), measurement dates
+    returns: array (N-2, d); row i estimates the derivative at time[i+1]
+    """
+    signal = np.asarray(signal, dtype=float)
+    time = np.asarray(time, dtype=float).reshape(-1, 1)  # force a column vector
+    if signal.ndim == 1:
+        signal = signal.reshape(-1, 1)  # treat a 1D signal as one column
+    if signal.shape[0] != time.shape[0]:
+        raise ValueError("signal and time must have the same number of rows")
+
+    return (signal[2:] - signal[:-2]) / (time[2:] - time[:-2])
+```
 
 ## Derivative Results
+
+
