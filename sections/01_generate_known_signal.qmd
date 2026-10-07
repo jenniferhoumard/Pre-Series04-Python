@@ -53,7 +53,29 @@ time = time.reshape(-1, 1)  # Convert the time vector into a column vector
 print(time.shape)  # Check the shape of the time vector
 ```
 
-
-
 ## Signal Visualization
+
+### Create the x, y, and z Signals
+
+Objective: to use the `time` vector created above to create a 3D sinusoidal signal. Each dimension has the same amplitude and frequency, but the phase is shifted by $\pi/4$ from one axis to the next. 
+
+We first define the amplitude, frequency, and phase shift:
+
+```{python}
+amplitude = 1  # Set the amplitude of each sinusoidal signal to 1
+
+frequency = 1  # Set the frequency of each sinusoidal signal to 1 Hz
+
+phase_shift = np.pi / 4  # Set the phase shift between each axis to pi/4 radians
+```
+
+Now we create the 3 signals x, y, and z
+
+```{python}
+x = amplitude * np.sin(2 * np.pi * frequency * time)  # Create the x signal with no phase shift
+
+y = amplitude * np.sin(2 * np.pi * frequency * time + phase_shift)  # Shift y by pi/4 relative to x
+
+z = amplitude * np.sin(2 * np.pi * frequency * time + 2 * phase_shift)  # Shift z by another pi/4 relative to y
+```
 
