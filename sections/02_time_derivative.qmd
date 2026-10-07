@@ -24,7 +24,30 @@ The expected amplitude is therefore $2\pi \approx 6.28$, which matches the verti
 
 ## Forward and Central Differences
 
+Objective: to estimate the derivative from sampled data, where we only know the signal at discrete times $t_i$.
+
+**A. Forward difference.** The slope is computed between a sample and the next one:
+
+$$\dot{s}(t_i) \approx \frac{s(t_{i+1}) - s(t_i)}{t_{i+1} - t_i}$$
+
+- Uses the current sample and the next one.
+- Error of order $O(h)$ (first-order accurate), where $h$ is the time step.
+- Gives $N-1$ values for $N$ samples (the last sample has no "next" sample).
+
+**B. Central difference.** The slope is computed between the previous and the next samples:
+
+$$\dot{s}(t_i) \approx \frac{s(t_{i+1}) - s(t_{i-1})}{t_{i+1} - t_{i-1}}$$
+
+- Uses the samples on both sides of $t_i$, so it is not biased toward the future.
+- Error of order $O(h^2)$ (second-order accurate), so it is more precise for the same sampling rate.
+- Gives $N-2$ values for $N$ samples (the first and last samples lack a neighbour).
+
+In short: the forward difference is simpler and uses fewer samples, but the central difference is more accurate.
+
+Reference: https://en.wikipedia.org/wiki/Finite_difference (see the sections on forward, backward and central differences).
 
 ## Derivative Functions
+
+
 
 ## Derivative Results
