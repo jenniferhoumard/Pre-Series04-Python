@@ -1,7 +1,7 @@
 
 ## Sinusoid Equation
 
-The objective of this section is to define the mathematical signal that will be generated in Python. We first describe a 1 Hz sinusoidal signal with an amplitude of 1 and no phase shift. This provides the reference signal for the x-axis before introducing phase shifts for the y- and z-axes.
+Objective: to define the mathematical signal that will be generated in Python. We first describe a 1 Hz sinusoidal signal with an amplitude of 1 and no phase shift. This provides the reference signal for the x-axis before introducing phase shifts for the y- and z-axes.
 
 A sinusoidal signal can be described by:
 $$s(t) = A \sin(2\pi f t + \phi)$$
@@ -25,7 +25,7 @@ A frequency of 1 Hz means that the signal completes one full cycle every second.
 
 ## Time Vector and Signal
 
-The objective of this step is to create the time values at which the sinusoidal signal will be calculated. The provided example uses 100 samples over a duration of 3 seconds and requires the time vector to be a column vector with shape `(100, 1)`.
+Objective: to create the time values at which the sinusoidal signal will be calculated. The provided example uses 100 samples over a duration of 3 seconds and requires the time vector to be a column vector with shape `(100, 1)`.
 
 ### Time Vector
 
