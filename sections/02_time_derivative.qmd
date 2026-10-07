@@ -42,7 +42,7 @@ $$\dot{s}(t_i) \approx \frac{s(t_{i+1}) - s(t_{i-1})}{t_{i+1} - t_{i-1}}$$
 - Error of order $O(h^2)$ (second-order accurate), so it is more precise for the same sampling rate.
 - Gives $N-2$ values for $N$ samples (the first and last samples lack a neighbour).
 
-In short: the forward difference is simpler and uses fewer samples, but the central difference is more accurate.
+In short: the forward difference uses the current and the next sample, while the central difference uses the previous and the next sample around the point. This makes the central difference more accurate ($O(h^2)$ versus $O(h)$).
 
 Reference: https://en.wikipedia.org/wiki/Finite_difference (see the sections on forward, backward and central differences).
 
@@ -57,11 +57,11 @@ Objective: to implement the two methods as functions that work on a signal with 
 
 **Order of the inputs:** `signal` first, then `time`. The signal is the main data being processed, and time is the reference axis along which we differentiate. This is also the convention of `np.gradient(f, x)` and `np.trapz(y, x)`: the values first, then the coordinates.
 
-**Shape of the output:** for `signal` of shape `(N, d)`, the raw formulas give `N-1` values (forward) and `N-2` values (central).
+**Shape of the output:** for `signal` of shape `(N, d)`, the raw formulas give `N-1` values (forward) and `N-2` values (central). We chose to keep the original shape `(N, d)` rather than the natural output of `(N-2, d)`. The true central difference is used for the $N-2$ interior samples, and the two edge samples are estimated with a forward difference (first row) and a backward difference (last row).
 
 The forward difference gives one slope per *interval* between two samples, and $N$ samples make only $N-1$ intervals. The central difference needs a neighbour on each side, so only interior samples qualify ($N-2$). To keep the output aligned with `time`, both functions return shape `(N, d)`:
 
-- **Forward:** $N-1$ slopes + 1 repeated row = $N$ rows. Each interval's slope is assigned to the sample at the *end* of the interval, and the first row repeats the first slope. (The textbook convention assigns it to the start; the two differ by one time step, 0.01 s, invisible on the plots.)
+- **Forward:** $N-1$ forward differences + 1 backward difference for the last sample = $N$ rows.
 - **Central:** $N-2$ interior slopes + 2 edge rows = $N$ rows. The first row uses a forward difference and the last row a backward difference, since each has a neighbour on one side only.
 
 ```{python}
@@ -72,8 +72,7 @@ def derivative_forward(signal, time):
 
     signal: array (N, d), samples over rows, dimensions over columns
     time:   array (N, 1) or (N,), measurement dates
-    returns: array (N, d); the first row repeats the second one, because
-             the forward difference gives only N-1 values.
+    returns: array (N, d); the last row uses a backward difference, because the last sample has no next neighbour.
     """
     signal = np.asarray(signal, dtype=float)
     time = np.asarray(time, dtype=float).reshape(-1, 1)  # force a column vector
@@ -82,8 +81,10 @@ def derivative_forward(signal, time):
     if signal.shape[0] != time.shape[0]:
         raise ValueError("signal and time must have the same number of rows")
 
-    d = (signal[1:] - signal[:-1]) / (time[1:] - time[:-1])  # (N-1, d)
-    return np.vstack((d[:1], d))  # repeat the first value so the output has N rows
+    d = np.empty_like(signal)
+    d[:-1] = (signal[1:] - signal[:-1]) / (time[1:] - time[:-1])  # forward difference
+    d[-1] = (signal[-1] - signal[-2]) / (time[-1] - time[-2])     # backward difference for the last sample
+    return d
 
 
 def derivative_central(signal, time):
