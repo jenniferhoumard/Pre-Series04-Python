@@ -52,7 +52,7 @@ Objective: to implement the two methods as functions that work on a signal with 
 
 **Order of the inputs:** `signal` first, then `time`. The signal is the main data being processed, and time is the reference axis along which we differentiate. This is also the convention of `np.gradient(f, x)` and `np.trapz(y, x)`: the values first, then the coordinates.
 
-**Shape of the output:** for `signal` of shape `(N, d)`, the forward difference returns `(N-1, d)` and the central difference returns `(N-2, d)`.
+**Shape of the output:** for `signal` of shape `(N, d)`, the raw formulas give `N-1` values (forward) and `N-2` values (central). To keep the output aligned with `time`, both functions pad the edges and return an array of shape `(N, d)`: the forward version repeats the first value, and the central version uses a one-sided difference on the first and last rows.
 
 ```{python}
 # Reference: https://en.wikipedia.org/wiki/Finite_difference
