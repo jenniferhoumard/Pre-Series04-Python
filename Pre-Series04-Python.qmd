@@ -13,7 +13,7 @@ format:
     number-sections: true
     embed-resources: true
 
-jupyter: python3
+jupyter: Pre-Series04-Python
 
 execute:
   echo: true
@@ -40,7 +40,7 @@ The assignment is divided into separate Quarto documents so that each group memb
 |---|---|
 | Student 1 | `01_generate_known_signal.qmd` and `04_interactive_plot.qmd` |
 | Student 2 | `02_time_derivative.qmd` |
-| Student 3 | `03_tangential_speed.qmd` |
+| Student 3 | `03_tangential_speed.qmd` | 
 
 ## Repository Structure
 

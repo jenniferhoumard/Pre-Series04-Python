@@ -1,6 +1,177 @@
 
 ## Sinusoid Equation
 
+Objective: to define the mathematical signal that will be generated in Python. We first describe a 1 Hz sinusoidal signal with an amplitude of 1 and no phase shift. This provides the reference signal for the x-axis before introducing phase shifts for the y- and z-axes.
+
+A sinusoidal signal can be described by:
+$$s(t) = A \sin(2\pi f t + \phi)$$
+
+where:
+
+- $A$ is the amplitude,
+- $f$ is the frequency in Hz,
+- $t$ is time in seconds,
+- $\phi$ is the phase shift in radians.
+
+For this signal:
+$$A = 1, \qquad f = 1 \text{ Hz}, \qquad \phi = 0$$
+
+Therefore, the sinusoid along the x-axis is:
+
+$$x(t) = \sin(2\pi t)$$
+
+A frequency of 1 Hz means that the signal completes one full cycle every second. Therefore, over 3 seconds, the signal completes three cycles.
+
+
 ## Time Vector and Signal
 
+Objective: to create the time values at which the sinusoidal signal will be calculated. The provided example uses 100 samples over a duration of 3 seconds and requires the time vector to be a column vector with shape `(100, 1)`.
+
+> **Note:** The brief gives values that do not match. At 100 Hz for 3 seconds, there should be 300 samples, not 1000. The example also shows 100 samples, so we use 100 samples to match the expected output.
+
+### Time Vector
+
+First, we define the duration and number of samples:
+
+```{python}
+duration = 3  # Total duration of the signal in seconds
+
+n_samples = 100  # Number of samples used in the provided example
+```
+
+Then we create 100 equally spaced time values between 0 and 3 seconds:
+
+```{python}
+time = np.linspace(0, duration, n_samples)  # Create the time values from 0 to 3 seconds
+
+print(time.shape)
+```
+
+Convert the time vector into a column vector: we need 100 rows and 1 column since np.linspace initially creates a one dimensional array
+
+```{python}
+time = time.reshape(-1, 1)  # Convert the time vector into a column vector
+
+print(time.shape)  # Check the shape of the time vector
+```
+
 ## Signal Visualization
+
+### Create the x, y, and z Signals
+
+Objective: to use the `time` vector created above to create a 3D sinusoidal signal. Each dimension has the same amplitude and frequency, but the phase is shifted by $\pi/4$ from one axis to the next. 
+
+We first define the amplitude, frequency, and phase shift:
+
+```{python}
+amplitude = 1  # Set the amplitude of each sinusoidal signal to 1
+
+frequency = 1  # Set the frequency of each sinusoidal signal to 1 Hz
+
+phase_shift = np.pi / 4  # Set the phase shift between each axis to pi/4 radians
+```
+
+Now we create the 3 signals x, y, and z:
+
+```{python}
+x = amplitude * np.sin(2 * np.pi * frequency * time)  # Create the x signal with no phase shift
+
+y = amplitude * np.sin(2 * np.pi * frequency * time + phase_shift)  # Shift y by pi/4 relative to x
+
+z = amplitude * np.sin(2 * np.pi * frequency * time + 2 * phase_shift)  # Shift z by another pi/4 relative to y
+```
+
+### Combine the Signals into a 2D Array
+
+Objective: to combine the separate x, y, and z signals into one 2D NumPy array.
+
+Each signal currently has the shape:
+
+```text
+(100, 1) 
+```
+We want the final signal array to contain:
+- x in the first column,
+- y in the second column,
+- z in the third column.
+
+```text
+(100, 3)
+```
+```{python}
+signal = np.hstack((x, y, z))  # Combine x, y, and z horizontally into one 2D array
+# hstack = horizontal stack
+
+print(signal.shape)  # Print the shape of the combined signal array
+```
+
+### 2D Plot
+
+Objective: to visualize how the x, y, and z sinusoidal signals change over time.
+
+Plotting the three signals on the same graph allows us to clearly see that they have the same amplitude and frequency, while being shifted in phase relative to each other.
+
+```{python}
+plt.figure(figsize=(10, 6))  # Create a new figure and define its size
+
+plt.plot(time[:, 0], signal[:, 0], marker="o", linestyle="--", label="x", color = "blue")  # Plot the x signal against time
+
+plt.plot(time[:, 0], signal[:, 1], marker="o", linestyle="--", label="y", color = "orange")  # Plot the y signal against time
+
+plt.plot(time[:, 0], signal[:, 2], marker="o", linestyle="--", label="z", color = "green")  # Plot the z signal against time
+
+plt.axhline(0, color="red", linewidth=1)  # Add a horizontal reference line at zero
+
+plt.title("2D plot of the signal")
+plt.xlabel("Time (s)")  # Label the horizontal axis
+plt.ylabel("Amplitude")  # Label the vertical axis
+
+plt.legend()  # Identify the x, y, and z signals
+plt.grid()  # Add a grid to make the plot easier to read
+
+plt.show()  # Display the completed plot
+
+print(time.shape)  # Check the shape of the time vector
+print(signal.shape)  # Print the shape of the combined signal array
+print(f"phase_shift = {phase_shift / np.pi:.2f} pi")  # Express the phase shift as a multiple of pi
+```
+
+### 3D Plot
+
+Objective: to represent the signal in three dimensions using the x, y, and z coordinates.
+
+Unlike the 2D plot, which shows how each signal changes over time, the 3D plot shows the geometric trajectory formed by the three sinusoidal dimensions together.
+
+Each sample is represented by one point in 3D space:
+
+- x gives the position on the x-axis,
+- y gives the position on the y-axis,
+- z gives the position on the z-axis.
+
+This allows us to visualize the overall shape created by the phase-shifted sinusoidal signals.
+
+```{python}
+plt.figure(figsize=(8, 6))  # Create a new figure
+
+ax = plt.axes(projection="3d")  # Create 3D axes
+
+ax.plot(signal[:, 0], signal[:, 1], signal[:, 2], marker="o", label="signal")  # Plot x, y, and z in their corresponding columns 
+
+ax.set_title("3D plot of the signal")  # Add a title
+
+ax.set_xlabel("x")  # Label the x-axis
+ax.set_ylabel("y")  # Label the y-axis
+ax.set_zlabel("z")  # Label the z-axis
+
+ax.set_xticks(np.arange(-1, 1.1, 0.5))  # Set x-axis tick spacing to 0.5
+ax.set_yticks(np.arange(-1, 1.1, 0.5))  # Set y-axis tick spacing to 0.5
+ax.set_zticks(np.arange(-1, 1.1, 0.5))  # Set z-axis tick spacing to 0.5
+
+ax.legend()  # Show the legend
+
+plt.show()  # Display the plot
+```
+
+The 3D plot represents the x, y, and z values of the signal at each time sample. Each point therefore represents one position in 3D space.
+
+The signals have the same amplitude and frequency but different phase shifts, which creates the closed loop seen in the plot. Since the signal is periodic, the same 3D trajectory is repeated during each cycle. Therefore, although the signal completes three cycles over 3 seconds, the cycles overlap and appear as a single closed path.
