@@ -48,6 +48,30 @@ Reference: https://en.wikipedia.org/wiki/Finite_difference (see the sections on 
 
 ## Derivative Functions
 
+Objective: to implement the two methods as functions that work on a signal with samples over rows and dimensions over columns.
+
+**Order of the inputs:** `signal` first, then `time`. The signal is the main data being processed, and time is the reference axis along which we differentiate. This is also the convention of `np.gradient(f, x)` and `np.trapz(y, x)`: the values first, then the coordinates.
+
+**Shape of the output:** for `signal` of shape `(N, d)`, the forward difference returns `(N-1, d)` and the central difference returns `(N-2, d)`.
+
+```{python}
+# Reference: https://en.wikipedia.org/wiki/Finite_difference
+
+def derivative_forward(signal, time):
+    """Time derivative using the forward difference.
+
+    signal: array (N, d), samples over rows, dimensions over columns
+    time:   array (N, 1) or (N,), measurement dates
+    returns: array (N-1, d); row i estimates the derivative at time[i]
+    """
+    signal = np.asarray(signal, dtype=float)
+    time = np.asarray(time, dtype=float).reshape(-1, 1)  # force a column vector
+    if signal.ndim == 1:
+        signal = signal.reshape(-1, 1)  # treat a 1D signal as one column
+    if signal.shape[0] != time.shape[0]:
+        raise ValueError("signal and time must have the same number of rows")
+
+    return (signal[1:] - signal[:-1]) / (time[1:] - time[:-1])
 
 
 ## Derivative Results
