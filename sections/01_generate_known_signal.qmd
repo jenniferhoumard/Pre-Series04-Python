@@ -27,6 +27,8 @@ A frequency of 1 Hz means that the signal completes one full cycle every second.
 
 Objective: to create the time values at which the sinusoidal signal will be calculated. The provided example uses 100 samples over a duration of 3 seconds and requires the time vector to be a column vector with shape `(100, 1)`.
 
+> **Note:** The brief gives values that do not match. At 100 Hz for 3 seconds, there should be 300 samples, not 1000. The example also shows 100 samples, so we use 100 samples to match the expected output.
+
 ### Time Vector
 
 First, we define the duration and number of samples:
