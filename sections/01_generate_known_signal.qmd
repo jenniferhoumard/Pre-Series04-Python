@@ -120,6 +120,7 @@ plt.plot(time[:, 0], signal[:, 2], marker="o", linestyle="--", label="z", color 
 
 plt.axhline(0, color="red", linewidth=1)  # Add a horizontal reference line at zero
 
+plt.title("2D plot of the signal")
 plt.xlabel("Time (s)")  # Label the horizontal axis
 plt.ylabel("Amplitude")  # Label the vertical axis
 
@@ -131,4 +132,40 @@ plt.show()  # Display the completed plot
 print(time.shape)  # Check the shape of the time vector
 print(signal.shape)  # Print the shape of the combined signal array
 print(f"phase_shift = {phase_shift / np.pi:.2f} pi")  # Express the phase shift as a multiple of pi
+```
 
+### 3D Plot
+
+Objective: to represent the signal in three dimensions using the x, y, and z coordinates.
+
+Unlike the 2D plot, which shows how each signal changes over time, the 3D plot shows the geometric trajectory formed by the three sinusoidal dimensions together.
+
+Each sample is represented by one point in 3D space:
+
+- x gives the position on the x-axis,
+- y gives the position on the y-axis,
+- z gives the position on the z-axis.
+
+This allows us to visualize the overall shape created by the phase-shifted sinusoidal signals.
+
+```{python}
+plt.figure(figsize=(8, 6))  # Create a new figure
+
+ax = plt.axes(projection="3d")  # Create 3D axes
+
+ax.plot(signal[:, 0], signal[:, 1], signal[:, 2], marker="o", label="signal")  # Plot x, y, and z in their corresponding columns 
+
+ax.set_title("3D plot of the signal")  # Add a title
+
+ax.set_xlabel("x")  # Label the x-axis
+ax.set_ylabel("y")  # Label the y-axis
+ax.set_zlabel("z")  # Label the z-axis
+
+ax.set_xticks(np.arange(-1, 1.1, 0.5))  # Set x-axis tick spacing to 0.5
+ax.set_yticks(np.arange(-1, 1.1, 0.5))  # Set y-axis tick spacing to 0.5
+ax.set_zticks(np.arange(-1, 1.1, 0.5))  # Set z-axis tick spacing to 0.5
+
+ax.legend()  # Show the legend
+
+plt.show()  # Display the plot
+```
