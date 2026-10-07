@@ -169,3 +169,7 @@ ax.legend()  # Show the legend
 
 plt.show()  # Display the plot
 ```
+
+The 3D plot represents the x, y, and z values of the signal at each time sample. Each point therefore represents one position in 3D space.
+
+The signals have the same amplitude and frequency but different phase shifts, which creates the closed loop seen in the plot. Since the signal is periodic, the same 3D trajectory is repeated during each cycle. Therefore, although the signal completes three cycles over 3 seconds, the cycles overlap and appear as a single closed path.
