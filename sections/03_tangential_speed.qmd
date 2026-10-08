@@ -18,10 +18,98 @@ $$
 Thus, tangential speed describes how fast the object moves along its trajectory, while tangential velocity also indicates the instantaneous direction of motion.
 
 **References:**
+- https://en.wikipedia.org/wiki/Tangential_speed
 - https://openstax.org/books/physics/pages/6-1-angle-of-rotation-and-angular-velocity
 - https://physics.stackexchange.com/questions/371973/tangential-velocity-vs-tangential-speed
 
 ## Tangential Speed Formula
+The tangential speed of a movement is obtained from its tangential velocity by taking the magnitude of the velocity vector.
+
+### 3D movement
+For a 3D movement, the position can be represented by the vector:
+
+$$
+\mathbf{r}(t) =
+\begin{bmatrix}
+x(t)\\
+y(t)\\
+z(t)
+\end{bmatrix}.
+$$
+
+The tangential velocity is the time derivative of the position:
+
+$$
+\mathbf{v}(t)
+=
+\frac{d\mathbf{r}(t)}{dt}
+=
+\begin{bmatrix}
+\frac{dx}{dt}\\
+\frac{dy}{dt}\\
+\frac{dz}{dt}
+\end{bmatrix}.
+$$
+
+Since tangential speed is the magnitude of the tangential velocity, its value at time $t$ is given by the Euclidean norm of the velocity vector:
+
+$$
+v(t)
+=
+\|\mathbf{v}(t)\|
+=
+\sqrt{
+\left(\frac{dx}{dt}\right)^2
++
+\left(\frac{dy}{dt}\right)^2
++
+\left(\frac{dz}{dt}\right)^2
+}.
+$$
+
+### nD movement
+This formula can be generalized to a movement described in $d$ dimensions. If the position is:
+
+$$
+\mathbf{r}(t)
+=
+\begin{bmatrix}
+x_1(t)\\
+x_2(t)\\
+\vdots\\
+x_d(t)
+\end{bmatrix},
+$$
+
+then the velocity is:
+
+$$
+\mathbf{v}(t)
+=
+\begin{bmatrix}
+\frac{dx_1}{dt}\\
+\frac{dx_2}{dt}\\
+\vdots\\
+\frac{dx_d}{dt}
+\end{bmatrix}.
+$$
+
+Therefore, the tangential speed is:
+
+$$
+v(t)
+=
+\sqrt{
+\sum_{j=1}^{d}
+\left(\frac{dx_j}{dt}\right)^2
+}.
+$$
+
+Thus, regardless of the number of spatial dimensions, the tangential speed is obtained by taking the Euclidean norm of the velocity components at each time sample.
+
+**reference:**
+- https://openstax.org/books/calculus-volume-3/pages/3-4-motion-in-space?
+- Use LLM to understand the concept of nD formula for tangential speed.
 
 ## Tangential Speed Function
 
