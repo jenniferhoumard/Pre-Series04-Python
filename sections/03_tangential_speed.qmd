@@ -260,3 +260,41 @@ speed_3d
 ```
 
 We created a simple 3D signal where the position increases by 1 unit per time interval in the first dimension and by 2 units per time interval in the second and third dimensions. The expected tangential speed is constant at 3 units per unit of time.
+
+### nD signal test
+We tested a 5D signal to verify that the function works with more than three spatial dimensions. The position changes by 1, 2, 3, 4, and 5 units per time interval in the five dimensions. The expected tangential speed is constant at \(\sqrt{55}\), approximately 7.416 units per unit of time.
+
+Therefore, the expected tangential speed is:
+$$
+v = \sqrt{1^2 + 2^2 + 3^2 + 4^2 + 5^2}
+= \sqrt{55}
+\approx 7.416.
+$$
+
+```{python}
+# Test 4: nD movement (5D)
+
+time_test = np.array([0, 1, 2, 3])
+
+signal_5d = np.array([
+    [0, 0, 0, 0, 0],
+    [1, 2, 3, 4, 5],
+    [2, 4, 6, 8, 10],
+    [3, 6, 9, 12, 15]
+])
+
+speed_5d = tangential_speed(signal_5d, time_test)
+
+expected_5d = np.array([
+    np.sqrt(55),
+    np.sqrt(55),
+    np.sqrt(55),
+    np.sqrt(55)
+])
+
+assert np.allclose(speed_5d, expected_5d)
+
+speed_5d
+```
+
+The tests for 1D, 2D, 3D, and nD signals all produced the expected results. The `assert` statements confirmed that the `tangential_speed()` function works correctly for signals with different numbers of dimensions.
