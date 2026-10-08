@@ -1,5 +1,25 @@
-
 ## Tangential Velocity and Tangential Speed
+Tangential velocity is the instantaneous linear velocity of an object moving along a circular or curved trajectory. It is a vector quantity, meaning that it has both a magnitude and a direction. The direction of the tangential velocity is tangent to the trajectory at each point.
+
+Tangential speed is the magnitude of the tangential velocity. Therefore, unlike tangential velocity, it is a scalar quantity and does not contain directional information.
+
+For a movement described by a position vector $\mathbf{r}(t)$, the velocity is the time derivative of the position:
+
+$$
+\mathbf{v}(t) = \frac{d\mathbf{r}(t)}{dt}.
+$$
+
+The corresponding speed is the magnitude of this velocity:
+
+$$
+v(t) = \|\mathbf{v}(t)\|.
+$$
+
+Thus, tangential speed describes how fast the object moves along its trajectory, while tangential velocity also indicates the instantaneous direction of motion.
+
+**References:**
+- https://openstax.org/books/physics/pages/6-1-angle-of-rotation-and-angular-velocity
+- https://physics.stackexchange.com/questions/371973/tangential-velocity-vs-tangential-speed
 
 ## Tangential Speed Formula
 
