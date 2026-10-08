@@ -112,5 +112,47 @@ Thus, regardless of the number of spatial dimensions, the tangential speed is ob
 - Use LLM to understand the concept of nD formula for tangential speed.
 
 ## Tangential Speed Function
+The tangential speed can be computed from a sampled movement by first estimating the
+velocity of each spatial dimension and then calculating the Euclidean norm of the
+velocity vector.
 
-## Function Tests
+The inputs are provided in the following order:
+
+- `signal`: a NumPy array containing the spatial coordinates. Samples are arranged
+  along rows and spatial dimensions along columns.
+- `time`: a NumPy array containing the measurement times, with one time value for
+  each sample.
+
+The `signal` is provided first because it represents the movement data from which
+the velocity is estimated, while `time` provides the temporal information needed
+to calculate the derivative.
+
+For a signal with `N` samples and `d` spatial dimensions, the velocity has the
+shape `(N, d)`. The tangential speed is then obtained by calculating the Euclidean
+norm across the spatial dimensions. Therefore, the output is a one-dimensional
+NumPy array with `N` values, one tangential speed value for each time sample.
+
+```{python}
+def tangential_speed(signal, time):
+    """
+    Compute the tangential speed of a multidimensional movement.
+
+    Parameters
+    ----------
+    signal : numpy.ndarray
+        Position signal with samples over rows and
+        spatial dimensions over columns.
+    time : numpy.ndarray
+        Time values corresponding to each sample.
+
+    Returns
+    -------
+    numpy.ndarray
+        Tangential speed for each time sample.
+    """
+
+    velocity = derivative_central(signal, time)
+    speed = np.linalg.norm(velocity, axis=1)
+
+    return speed
+```
