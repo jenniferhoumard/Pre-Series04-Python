@@ -1,8 +1,298 @@
+```{python}
+import numpy as np
+```
 
 ## Tangential Velocity and Tangential Speed
+Tangential velocity is the instantaneous linear velocity of an object moving along a circular or curved trajectory. It is a vector quantity, meaning that it has both a magnitude and a direction. The direction of the tangential velocity is tangent to the trajectory at each point.
+
+Tangential speed is the magnitude of the tangential velocity. Therefore, unlike tangential velocity, it is a scalar quantity and does not contain directional information.
+
+For a movement described by a position vector $\mathbf{r}(t)$, the velocity is the time derivative of the position:
+
+$$
+\mathbf{v}(t) = \frac{d\mathbf{r}(t)}{dt}.
+$$
+
+The corresponding speed is the magnitude of this velocity:
+
+$$
+v(t) = \|\mathbf{v}(t)\|.
+$$
+
+Thus, tangential speed describes how fast the object moves along its trajectory, while tangential velocity also indicates the instantaneous direction of motion.
+
+**References:**
+- https://openstax.org/books/physics/pages/6-1-angle-of-rotation-and-angular-velocity
+- https://physics.stackexchange.com/questions/371973/tangential-velocity-vs-tangential-speed
 
 ## Tangential Speed Formula
+The tangential speed of a movement is obtained from its tangential velocity by taking the magnitude of the velocity vector.
+
+### 3D movement
+For a 3D movement, the position can be represented by the vector:
+
+$$
+\mathbf{r}(t) =
+\begin{bmatrix}
+x(t)\\
+y(t)\\
+z(t)
+\end{bmatrix}.
+$$
+
+The tangential velocity is the time derivative of the position:
+
+$$
+\mathbf{v}(t)
+=
+\frac{d\mathbf{r}(t)}{dt}
+=
+\begin{bmatrix}
+\frac{dx}{dt}\\
+\frac{dy}{dt}\\
+\frac{dz}{dt}
+\end{bmatrix}.
+$$
+
+Since tangential speed is the magnitude of the tangential velocity, its value at time $t$ is given by the Euclidean norm of the velocity vector:
+
+$$
+v(t)
+=
+\|\mathbf{v}(t)\|
+=
+\sqrt{
+\left(\frac{dx}{dt}\right)^2
++
+\left(\frac{dy}{dt}\right)^2
++
+\left(\frac{dz}{dt}\right)^2
+}.
+$$
+
+### nD movement
+This formula can be generalized to a movement described in $d$ dimensions. If the position is:
+
+$$
+\mathbf{r}(t)
+=
+\begin{bmatrix}
+x_1(t)\\
+x_2(t)\\
+\vdots\\
+x_d(t)
+\end{bmatrix},
+$$
+
+then the velocity is:
+
+$$
+\mathbf{v}(t)
+=
+\begin{bmatrix}
+\frac{dx_1}{dt}\\
+\frac{dx_2}{dt}\\
+\vdots\\
+\frac{dx_d}{dt}
+\end{bmatrix}.
+$$
+
+Therefore, the tangential speed is:
+
+$$
+v(t)
+=
+\sqrt{
+\sum_{j=1}^{d}
+\left(\frac{dx_j}{dt}\right)^2
+}.
+$$
+
+Thus, regardless of the number of spatial dimensions, the tangential speed is obtained by taking the Euclidean norm of the velocity components at each time sample.
+
+**reference:**
+- https://openstax.org/books/calculus-volume-3/pages/3-4-motion-in-space?
 
 ## Tangential Speed Function
+The tangential speed can be computed from a sampled movement by first estimating the
+velocity of each spatial dimension and then calculating the Euclidean norm of the
+velocity vector.
+
+The inputs are provided in the following order:
+
+- `signal`: a NumPy array containing the spatial coordinates. Samples are arranged
+  along rows and spatial dimensions along columns.
+- `time`: a NumPy array containing the measurement times, with one time value for
+  each sample.
+
+The `signal` is provided first because it represents the movement data from which
+the velocity is estimated, while `time` provides the temporal information needed
+to calculate the derivative.
+
+For a signal with `N` samples and `d` spatial dimensions, the velocity has the
+shape `(N, d)`. The tangential speed is then obtained by calculating the Euclidean
+norm across the spatial dimensions. Therefore, the output is a one-dimensional
+NumPy array with `N` values, one tangential speed value for each time sample.
+
+```{python}
+def tangential_speed(signal, time):
+    """
+    Compute the tangential speed of a multidimensional movement.
+
+    Parameters
+    ----------
+    signal : numpy.ndarray
+        Position signal with samples over rows and
+        spatial dimensions over columns.
+    time : numpy.ndarray
+        Time values corresponding to each sample.
+
+    Returns
+    -------
+    numpy.ndarray
+        Tangential speed for each time sample.
+    """
+
+    velocity = derivative_central(signal, time)
+    speed = np.linalg.norm(velocity, axis=1)
+
+    return speed
+```
 
 ## Function Tests
+We test the function using simple sampled signals for which the expected
+tangential speed can be calculated analytically.
+
+For each test, the expected velocity is first determined from the change in
+position divided by the change in time. The expected tangential speed is then
+calculated as the Euclidean norm of the velocity vector.
+
+The tests cover signals with 1, 2, and 3 spatial dimensions.
+
+### 1D signal test
+```{python}
+# Test 1: 1D movement
+
+time_test = np.array([0, 1, 2, 3])
+signal_1d = np.array([[0], [1], [2], [3]])
+
+speed_1d = tangential_speed(signal_1d, time_test)
+
+expected_1d = np.array([1, 1, 1, 1])
+
+assert np.allclose(speed_1d, expected_1d)
+
+speed_1d
+```
+
+we created a simple 1D signal where the position increases linearly with time. The expected tangential speed is constant at 1 unit per unit of time.
+
+### 2D signal test
+
+For the 2D test, the position increases by 1 unit per time interval in the
+first dimension and by 2 units per time interval in the second dimension.
+
+Therefore, the expected tangential speed is:
+
+$$
+v = \sqrt{1^2 + 2^2} = \sqrt{5}.
+$$
+```{python}
+# Test 2: 2D movement
+
+time_test = np.array([0, 1, 2, 3])
+
+signal_2d = np.array([
+    [0, 0],
+    [1, 2],
+    [2, 4],
+    [3, 6]
+])
+
+speed_2d = tangential_speed(signal_2d, time_test)
+
+expected_2d = np.array([
+    np.sqrt(5),
+    np.sqrt(5),
+    np.sqrt(5),
+    np.sqrt(5)
+])
+
+assert np.allclose(speed_2d, expected_2d)
+
+speed_2d
+```
+
+We created a simple 2D signal where the position increases by 1 unit per time interval in the first dimension and by 2 units per time interval in the second dimension. The expected tangential speed is constant at \(\sqrt{5}\), approximately 2.236 units per unit of time. This explains the output of the test.
+
+### 3D signal test
+
+For the 3D test, the position increases by 1 unit per time interval in the
+first dimension, 2 units in the second dimension, and 2 units in the third
+dimension.
+
+Therefore, the expected tangential speed is:
+
+$$
+v = \sqrt{1^2 + 2^2 + 2^2} = 3.
+$$
+```{python}
+# Test 3: 3D movement
+
+time_test = np.array([0, 1, 2, 3])
+
+signal_3d = np.array([
+    [0, 0, 0],
+    [1, 2, 2],
+    [2, 4, 4],
+    [3, 6, 6]
+])
+
+speed_3d = tangential_speed(signal_3d, time_test)
+
+expected_3d = np.array([3, 3, 3, 3])
+
+assert np.allclose(speed_3d, expected_3d)
+
+speed_3d
+```
+
+We created a simple 3D signal where the position increases by 1 unit per time interval in the first dimension and by 2 units per time interval in the second and third dimensions. The expected tangential speed is constant at 3 units per unit of time.
+
+### nD signal test
+We tested a 5D signal to verify that the function works with more than three spatial dimensions. The position changes by 1, 2, 3, 4, and 5 units per time interval in the five dimensions. The expected tangential speed is constant at \(\sqrt{55}\), approximately 7.416 units per unit of time.
+
+Therefore, the expected tangential speed is:
+$$
+v = \sqrt{1^2 + 2^2 + 3^2 + 4^2 + 5^2}
+= \sqrt{55}
+\approx 7.416.
+$$
+
+```{python}
+# Test 4: nD movement (5D)
+
+time_test = np.array([0, 1, 2, 3])
+
+signal_5d = np.array([
+    [0, 0, 0, 0, 0],
+    [1, 2, 3, 4, 5],
+    [2, 4, 6, 8, 10],
+    [3, 6, 9, 12, 15]
+])
+
+speed_5d = tangential_speed(signal_5d, time_test)
+
+expected_5d = np.array([
+    np.sqrt(55),
+    np.sqrt(55),
+    np.sqrt(55),
+    np.sqrt(55)
+])
+
+assert np.allclose(speed_5d, expected_5d)
+
+speed_5d
+```
+
+The tests for 1D, 2D, 3D, and nD signals all produced the expected results. The `assert` statements confirmed that the `tangential_speed()` function works correctly for signals with different numbers of dimensions.
