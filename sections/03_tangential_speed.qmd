@@ -189,4 +189,40 @@ speed_1d
 
 we created a simple 1D signal where the position increases linearly with time. The expected tangential speed is constant at 1 unit per time interval.
 
-#
+### 2D signal test
+
+For the 2D test, the position increases by 1 unit per time interval in the
+first dimension and by 2 units per time interval in the second dimension.
+
+Therefore, the expected tangential speed is:
+
+$$
+v = \sqrt{1^2 + 2^2} = \sqrt{5}.
+$$
+```{python}
+# Test 2: 2D movement
+
+time_test = np.array([0, 1, 2, 3])
+
+signal_2d = np.array([
+    [0, 0],
+    [1, 2],
+    [2, 4],
+    [3, 6]
+])
+
+speed_2d = tangential_speed(signal_2d, time_test)
+
+expected_2d = np.array([
+    np.sqrt(5),
+    np.sqrt(5),
+    np.sqrt(5),
+    np.sqrt(5)
+])
+
+assert np.allclose(speed_2d, expected_2d)
+
+speed_2d
+```
+
+We created a simple 2D signal where the position increases by 1 unit per time interval in the first dimension and by 2 units per time interval in the second dimension. The expected tangential speed is constant at \(\sqrt{5}\), approximately 2.236 units per unit of time. This explains the output of the test.
