@@ -22,7 +22,6 @@ $$
 Thus, tangential speed describes how fast the object moves along its trajectory, while tangential velocity also indicates the instantaneous direction of motion.
 
 **References:**
-- https://en.wikipedia.org/wiki/Tangential_speed
 - https://openstax.org/books/physics/pages/6-1-angle-of-rotation-and-angular-velocity
 - https://physics.stackexchange.com/questions/371973/tangential-velocity-vs-tangential-speed
 
@@ -113,7 +112,6 @@ Thus, regardless of the number of spatial dimensions, the tangential speed is ob
 
 **reference:**
 - https://openstax.org/books/calculus-volume-3/pages/3-4-motion-in-space?
-- Use LLM to understand the concept of nD formula for tangential speed.
 
 ## Tangential Speed Function
 The tangential speed can be computed from a sampled movement by first estimating the
@@ -187,7 +185,7 @@ assert np.allclose(speed_1d, expected_1d)
 speed_1d
 ```
 
-we created a simple 1D signal where the position increases linearly with time. The expected tangential speed is constant at 1 unit per time interval.
+we created a simple 1D signal where the position increases linearly with time. The expected tangential speed is constant at 1 unit per unit of time.
 
 ### 2D signal test
 
