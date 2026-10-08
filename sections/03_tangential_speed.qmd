@@ -1,3 +1,7 @@
+```{python}
+import numpy as np
+```
+
 ## Tangential Velocity and Tangential Speed
 Tangential velocity is the instantaneous linear velocity of an object moving along a circular or curved trajectory. It is a vector quantity, meaning that it has both a magnitude and a direction. The direction of the tangential velocity is tangent to the trajectory at each point.
 
@@ -156,3 +160,33 @@ def tangential_speed(signal, time):
 
     return speed
 ```
+
+## Function Tests
+We test the function using simple sampled signals for which the expected
+tangential speed can be calculated analytically.
+
+For each test, the expected velocity is first determined from the change in
+position divided by the change in time. The expected tangential speed is then
+calculated as the Euclidean norm of the velocity vector.
+
+The tests cover signals with 1, 2, and 3 spatial dimensions.
+
+### 1D signal test
+```{python}
+# Test 1: 1D movement
+
+time_test = np.array([0, 1, 2, 3])
+signal_1d = np.array([[0], [1], [2], [3]])
+
+speed_1d = tangential_speed(signal_1d, time_test)
+
+expected_1d = np.array([1, 1, 1, 1])
+
+assert np.allclose(speed_1d, expected_1d)
+
+speed_1d
+```
+
+we created a simple 1D signal where the position increases linearly with time. The expected tangential speed is constant at 1 unit per time interval.
+
+#
