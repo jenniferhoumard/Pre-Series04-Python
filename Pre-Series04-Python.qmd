@@ -86,3 +86,8 @@ Pre-Series04-Python/
 # Create an interactive plot with the Plotly library
 
 {{< include sections/04_interactive_plot.qmd >}}
+
+
+## References
+
+Strang, G., & Herman, E. J. (2016). *Calculus volume 3*. OpenStax. https://openstax.org/books/calculus-volume-3/pages/3-4-motion-in-space
