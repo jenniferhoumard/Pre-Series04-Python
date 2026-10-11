@@ -44,8 +44,6 @@ $$\dot{s}(t_i) \approx \frac{s(t_{i+1}) - s(t_{i-1})}{t_{i+1} - t_{i-1}}$$
 
 In short: the forward difference uses the current and the next sample, while the central difference uses the previous and the next sample around the point. This makes the central difference more accurate ($O(h^2)$ versus $O(h)$).
 
-Reference: https://en.wikipedia.org/wiki/Finite_difference (see the sections on forward, backward and central differences).
-
 *Side notes (beyond the two required methods):*
 
 - The **backward difference**, $\dot{s}(t_i) \approx \frac{s(t_i) - s(t_{i-1})}{t_i - t_{i-1}}$, uses the current and the previous sample. It is also first-order, $O(h)$. We use it for the last row of the central-difference function, where there is no next neighbour.
@@ -65,7 +63,8 @@ The forward difference gives one slope per *interval* between two samples, and $
 - **Central:** $N-2$ interior slopes + 2 edge rows = $N$ rows. The first row uses a forward difference and the last row a backward difference, since each has a neighbour on one side only.
 
 ```{python}
-# Reference: https://en.wikipedia.org/wiki/Finite_difference
+# Reference: Kong, Siauw & Bayen, Python Programming and Numerical Methods, ch. 20.2
+# https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/chapter20.02-Finite-Difference-Approximating-Derivatives.html
 
 def derivative_forward(signal, time):
     """Time derivative using the forward difference.

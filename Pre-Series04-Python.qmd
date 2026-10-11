@@ -88,7 +88,8 @@ Pre-Series04-Python/
 {{< include sections/04_interactive_plot.qmd >}}
 
 
-## References
+# References
 
 - Strang, G., & Herman, E. J. (2016). *Calculus volume 3*. OpenStax. https://openstax.org/books/calculus-volume-3/pages/3-4-motion-in-space
+- Kong, Q., Siauw, T., & Bayen, A. *Python Programming and Numerical Methods: A Guide for Engineers and Scientists*, Chapter 20.2, "Finite Difference Approximating Derivatives". https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/chapter20.02-Finite-Difference-Approximating-Derivatives.html
 - Ammon, C. (2017, December 1). *Tangential velocity - vs - tangential speed*. Physics Stack Exchange. https://physics.stackexchange.com/questions/371973/tangential-velocity-vs-tangential-speed 
