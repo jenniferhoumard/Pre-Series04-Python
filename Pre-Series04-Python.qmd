@@ -24,7 +24,7 @@ GitHub repository: https://github.com/jenniferhoumard/Pre-Series04-Python
 
 ```{python}
 #| label: setup
-#| include: false
+#| include: true
 
 import numpy as np
 import matplotlib.pyplot as plt
