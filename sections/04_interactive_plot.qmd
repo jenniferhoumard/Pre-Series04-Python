@@ -60,3 +60,5 @@ fig.update_layout(
 fig.show()
 ```
 
+### Interpretation
+The interactive Plotly figure displays the three spatial components of the movement signal (X, Y, and Z) and the tangential speed as functions of time. The interactive controls allow us to inspect specific time intervals, zoom in and out, and examine the values using hover information. This makes it easier to explore changes in the movement signal and its tangential speed over time.
