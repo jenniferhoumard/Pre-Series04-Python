@@ -53,7 +53,7 @@ fig.add_trace(
 fig.update_layout(
     title="Position Signal and Tangential Speed",
     xaxis_title="Time (s)",
-    yaxis_title="Position / Speed",
+    yaxis_title="Amplitude (m) / Velocity (m/s)",
     hovermode="x unified"
 )
 
