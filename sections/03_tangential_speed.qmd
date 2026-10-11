@@ -1,11 +1,7 @@
-```{python}
-import numpy as np
-```
-
 ## Tangential Velocity and Tangential Speed
 Tangential velocity is the instantaneous linear velocity of an object moving along a circular or curved trajectory. It is a vector quantity, meaning that it has both a magnitude and a direction. The direction of the tangential velocity is tangent to the trajectory at each point.
 
-Tangential speed is the magnitude of the tangential velocity. Therefore, unlike tangential velocity, it is a scalar quantity and does not contain directional information.
+Tangential speed is the magnitude of the tangential velocity. Therefore, unlike tangential velocity, it is a scalar quantity and does not contain directional information. (Strang & Herman, 2016)
 
 For a movement described by a position vector $\mathbf{r}(t)$, the velocity is the time derivative of the position:
 
@@ -19,11 +15,7 @@ $$
 v(t) = \|\mathbf{v}(t)\|.
 $$
 
-Thus, tangential speed describes how fast the object moves along its trajectory, while tangential velocity also indicates the instantaneous direction of motion.
-
-**References:**
-- https://openstax.org/books/physics/pages/6-1-angle-of-rotation-and-angular-velocity
-- https://physics.stackexchange.com/questions/371973/tangential-velocity-vs-tangential-speed
+Thus, tangential speed describes how fast the object moves along its trajectory, while tangential velocity also indicates the instantaneous direction of motion. (Ammon, 2017)
 
 ## Tangential Speed Formula
 The tangential speed of a movement is obtained from its tangential velocity by taking the magnitude of the velocity vector.
@@ -108,10 +100,7 @@ v(t)
 }.
 $$
 
-Thus, regardless of the number of spatial dimensions, the tangential speed is obtained by taking the Euclidean norm of the velocity components at each time sample.
-
-**reference:**
-- https://openstax.org/books/calculus-volume-3/pages/3-4-motion-in-space?
+Thus, regardless of the number of spatial dimensions, the tangential speed is obtained by taking the Euclidean norm of the velocity components at each time sample (Strang & Herman, 2016).
 
 ## Tangential Speed Function
 The tangential speed can be computed from a sampled movement by first estimating the
@@ -125,14 +114,9 @@ The inputs are provided in the following order:
 - `time`: a NumPy array containing the measurement times, with one time value for
   each sample.
 
-The `signal` is provided first because it represents the movement data from which
-the velocity is estimated, while `time` provides the temporal information needed
-to calculate the derivative.
+The `signal` is provided first because it represents the movement data from which the velocity is estimated, while `time` provides the temporal information needed to calculate the derivative.
 
-For a signal with `N` samples and `d` spatial dimensions, the velocity has the
-shape `(N, d)`. The tangential speed is then obtained by calculating the Euclidean
-norm across the spatial dimensions. Therefore, the output is a one-dimensional
-NumPy array with `N` values, one tangential speed value for each time sample.
+For a signal with `N` samples and `d` spatial dimensions, the velocity has the shape `(N, d)`. The tangential speed is then obtained by calculating the Euclidean norm across the spatial dimensions. Therefore, the output is a one-dimensional NumPy array with `N` values, one tangential speed value for each time sample.
 
 ```{python}
 def tangential_speed(signal, time):
@@ -159,6 +143,8 @@ def tangential_speed(signal, time):
     return speed
 ```
 
+The velocity is estimated using the `derivative_central()` function introduced in Section 2. We use the central-difference method because it estimates the derivative using neighbouring samples on both sides of each interior sample, providing a more accurate estimate than the forward-difference method for these samples.
+
 ## Function Tests
 We test the function using simple sampled signals for which the expected
 tangential speed can be calculated analytically.
@@ -167,9 +153,15 @@ For each test, the expected velocity is first determined from the change in
 position divided by the change in time. The expected tangential speed is then
 calculated as the Euclidean norm of the velocity vector.
 
-The tests cover signals with 1, 2, and 3 spatial dimensions.
+The tests cover signals with 1, 2, 3, and nD spatial dimensions.
 
 ### 1D signal test
+For the 1D test, the position increases by 1 unit for each time interval of 1 unit. Therefore, the velocity is 1 unit per unit of time, and the expected tangential speed is:
+
+$$
+v = \sqrt{1^2} = 1.
+$$
+
 ```{python}
 # Test 1: 1D movement
 
@@ -185,7 +177,7 @@ assert np.allclose(speed_1d, expected_1d)
 speed_1d
 ```
 
-we created a simple 1D signal where the position increases linearly with time. The expected tangential speed is constant at 1 unit per unit of time.
+We created a simple 1D signal where the position increases linearly with time. The expected tangential speed is constant at 1 unit per unit of time.
 
 ### 2D signal test
 
@@ -223,7 +215,7 @@ assert np.allclose(speed_2d, expected_2d)
 speed_2d
 ```
 
-We created a simple 2D signal where the position increases by 1 unit per time interval in the first dimension and by 2 units per time interval in the second dimension. The expected tangential speed is constant at \(\sqrt{5}\), approximately 2.236 units per unit of time. This explains the output of the test.
+We created a simple 2D signal where the position increases by 1 unit per time interval in the first dimension and by 2 units per time interval in the second dimension. The expected tangential speed is constant at $\sqrt{5}$, approximately 2.236 units per unit of time. This explains the output of the test.
 
 ### 3D signal test
 
@@ -260,7 +252,7 @@ speed_3d
 We created a simple 3D signal where the position increases by 1 unit per time interval in the first dimension and by 2 units per time interval in the second and third dimensions. The expected tangential speed is constant at 3 units per unit of time.
 
 ### nD signal test
-We tested a 5D signal to verify that the function works with more than three spatial dimensions. The position changes by 1, 2, 3, 4, and 5 units per time interval in the five dimensions. The expected tangential speed is constant at \(\sqrt{55}\), approximately 7.416 units per unit of time.
+We tested a 5D signal to verify that the function works with more than three spatial dimensions. The position changes by 1, 2, 3, 4, and 5 units per time interval in the five dimensions. The expected tangential speed is constant at $\sqrt{55}$, approximately 7.416 units per unit of time.
 
 Therefore, the expected tangential speed is:
 $$
