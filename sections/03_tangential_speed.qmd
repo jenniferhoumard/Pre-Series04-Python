@@ -18,7 +18,7 @@ $$
 Thus, tangential speed describes how fast the object moves along its trajectory, while tangential velocity also indicates the instantaneous direction of motion. (Ammon, 2017)
 
 ## Tangential Speed Formula
-The tangential speed of a movement is obtained from its tangential velocity by taking the magnitude of the velocity vector.
+The tangential speed of a movement is obtained from its tangential velocity by taking the magnitude of the velocity vector (Martin et al., 2018).
 
 ### 3D movement
 For a 3D movement, the position can be represented by the vector:

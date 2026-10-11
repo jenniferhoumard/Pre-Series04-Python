@@ -20,7 +20,7 @@ execute:
   warning: false
 ---
 
-GitHub repository: https://github.com/jenniferhoumard/Pre-Series04-Python
+**GitHub Repository:** [Pre-Series04-Python](https://github.com/jenniferhoumard/Pre-Series04-Python)
 
 ```{python}
 #| label: setup
@@ -31,10 +31,13 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 ```
 
-
 # Group Workflow
 
-The assignment is divided into separate Quarto documents so that each group member can work independently on their own branch. Once a section is completed and reviewed, its branch is merged into `main`. The master Quarto document combines all sections into the final report.
+To keep the group work clear and efficient, one student first created the GitHub repository and set up the Quarto document structure. The main sections and subheadings were prepared in advance to guide the team on what content needed to be included and how the final report should be organized.
+
+The individual Quarto documents were then distributed among the group members. Each student worked on their assigned section using a separate Git branch. Once a section was completed, it was reviewed by the group and then merged into `main`.
+
+The master Quarto document combines all completed sections into the final report.
 
 | Student | Quarto Document |
 |---|---|
@@ -90,6 +93,12 @@ Pre-Series04-Python/
 
 # References
 
-- Strang, G., & Herman, E. J. (2016). *Calculus volume 3*. OpenStax. https://openstax.org/books/calculus-volume-3/pages/3-4-motion-in-space
-- Kong, Q., Siauw, T., & Bayen, A. *Python Programming and Numerical Methods: A Guide for Engineers and Scientists*, Chapter 20.2, "Finite Difference Approximating Derivatives". https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/chapter20.02-Finite-Difference-Approximating-Derivatives.html
-- Ammon, C. (2017, December 1). *Tangential velocity - vs - tangential speed*. Physics Stack Exchange. https://physics.stackexchange.com/questions/371973/tangential-velocity-vs-tangential-speed 
+Ammon, C. (2017, December 1). *Tangential velocity - vs - tangential speed*. Physics Stack Exchange. https://physics.stackexchange.com/questions/371973/tangential-velocity-vs-tangential-speed 
+
+Kong, Q., Siauw, T., & Bayen, A. (2020). *Python Programming and Numerical Methods: A Guide for Engineers and Scientists*, Chapter 20.2, "Finite Difference Approximating Derivatives". https://pythonnumericalmethods.studentorg.berkeley.edu/notebooks/chapter20.02-Finite-Difference-Approximating-Derivatives.html
+
+Martin, R. D., Neary, E., Rinaldo, J., & Woodman, O. (2018). Uniform circular motion. Physics LibreTexts. https://phys.libretexts.org/Bookshelves/University_Physics/Book%3A_Introductory_Physics_-_Building_Models_to_Describe_Our_World_%28Martin_Neary_Rinaldo_and_Woodman%29/06%3A_Applying_Newtons_Laws/6.03%3A_Uniform_circular_motion
+
+Strang, G., & Herman, E. J. (2016). *Calculus volume 3*. OpenStax. https://openstax.org/books/calculus-volume-3/pages/3-4-motion-in-space
+
+
