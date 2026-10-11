@@ -1,2 +1,64 @@
-
 ## Interactive Plot
+The objective of this section is to visualize a movement signal and its tangential speed using the Plotly library. Plotly creates interactive plots that allow us to inspect the data, zoom in and out, and explore the relationship between position and tangential speed.
+
+We use the time and signal variables generated in Section 1 and the tangential_speed() function implemented in Section 3. The three columns of signal represent the x, y, and z coordinates. We calculate the tangential speed from the existing function and display all four quantities against time. Plotly allows us to inspect the curves interactively using hover information and zoom controls.
+
+```{python}
+
+# Calculate tangential speed using the existing function
+speed = tangential_speed(signal, time)
+
+# Create an interactive figure
+fig = go.Figure()
+
+# Add the three position components
+fig.add_trace(
+    go.Scatter(
+        x=time[:, 0],
+        y=signal[:, 0],
+        mode="lines",
+        name="X position"
+    )
+)
+
+fig.add_trace(
+    go.Scatter(
+        x=time[:, 0],
+        y=signal[:, 1],
+        mode="lines",
+        name="Y position"
+    )
+)
+
+fig.add_trace(
+    go.Scatter(
+        x=time[:, 0],
+        y=signal[:, 2],
+        mode="lines",
+        name="Z position"
+    )
+)
+
+# Add tangential speed
+fig.add_trace(
+    go.Scatter(
+        x=time[:, 0],
+        y=speed,
+        mode="lines",
+        name="Tangential speed"
+    )
+)
+
+# Configure the interactive plot
+fig.update_layout(
+    title="Position Signal and Tangential Speed",
+    xaxis_title="Time (s)",
+    yaxis_title="Amplitude (m) / Velocity (m/s)",
+    hovermode="x unified"
+)
+
+fig.show()
+```
+
+### Interpretation
+The interactive Plotly figure displays the three spatial components of the movement signal (X, Y, and Z) and the tangential speed as functions of time. The interactive controls allow us to inspect specific time intervals, zoom in and out, and examine the values using hover information. This makes it easier to explore changes in the movement signal and its tangential speed over time.

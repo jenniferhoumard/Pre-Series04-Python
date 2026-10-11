@@ -38,9 +38,9 @@ The assignment is divided into separate Quarto documents so that each group memb
 
 | Student | Quarto Document |
 |---|---|
-| Student 1 | `01_generate_known_signal.qmd` and `04_interactive_plot.qmd` |
+| Student 1 | `01_generate_known_signal.qmd` |
 | Student 2 | `02_time_derivative.qmd` |
-| Student 3 | `03_tangential_speed.qmd` | 
+| Student 3 | `03_tangential_speed.qmd` and `04_interactive_plot.qmd` | 
 
 ## Repository Structure
 
@@ -90,4 +90,5 @@ Pre-Series04-Python/
 
 ## References
 
-Strang, G., & Herman, E. J. (2016). *Calculus volume 3*. OpenStax. https://openstax.org/books/calculus-volume-3/pages/3-4-motion-in-space
+- Strang, G., & Herman, E. J. (2016). *Calculus volume 3*. OpenStax. https://openstax.org/books/calculus-volume-3/pages/3-4-motion-in-space
+- Ammon, C. (2017, December 1). *Tangential velocity - vs - tangential speed*. Physics Stack Exchange. https://physics.stackexchange.com/questions/371973/tangential-velocity-vs-tangential-speed 
